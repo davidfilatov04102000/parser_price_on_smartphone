@@ -1,0 +1,12 @@
+smartphone_list = ["Redmi Note 11 6/128GB", "Redmi Note 11 4/128GB", "Redmi Note 11 4/128GB NFC",
+                   "Redmi Note 11S 6/128GB", "Redmi Note 11 Pro 6/128GB", "Redmi 10C 4/128GB без NFC",
+                   "Redmi Note 11 Pro 5G 8/128GB", "Xiaomi Redmi Note 10 Pro 8/256GB",
+                   "Xiaomi Redmi Note 10 Pro 8/128GB", "Redmi 10C 4/64GB без NFC", "Redmi 10C 4/128GB без NFC",
+                   "Redmi Note 11 Pro+ 5G 8/128GB", "Xiaomi Redmi Note 10 Pro 8/128GB", "Xiaomi Redmi 9A 2/32Gb",
+                   "Redmi 10 2022 4/128GB", "Redmi 10 2022 6/128GB", "Redmi 10 2022 4/64GB", "POCO M5 4/64GB",
+                   "POCO M5 4/128GB", "POCO M5 6/128GB", "POCO X4 Pro 5G 8/256GB", "Huawei Nova 10 SE 8/128GB",
+                   "Huawei Nova Y70 4/64GB", "Huawei Nova Y70 4/128GB", "Huawei Nova Y90 4/128GB",
+                   "Honor X7 4/128GB", "Honor X8 6/128GB", "Honor X7a 4/128GB", "Honor X5 2/32GB",
+                   "Honor X9a 5G 6/128GB", "Honor X6 4/64GB", "Honor X8a 6/128GB", "Realme C30 2/32GB",
+                   "Realme C33 4/64GB NFC", "Realme C35 4/64GB", "Samsung A045 3/32GB", "Samsung A135 4/128GB",
+                   "Samsung A336 6/128GB"]
