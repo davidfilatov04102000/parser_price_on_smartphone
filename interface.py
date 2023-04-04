@@ -5,6 +5,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 global_info_list = []
+global_info_list_2 = []
 
 
 def get_val():
@@ -33,28 +34,47 @@ def get_val():
 
 
 def get_val_2():
-    local_list = []
+    local_list_2 = []
     gt1, gt2, gt3, gt4 = vid1_1.get_value(), vid2_1.get_value(), vid3_1.get_value(), vid4_1.get_value()
-    local_list.append(gt1[0]), local_list.append(gt1[1]), local_list.append(gt1[2]), local_list.append(gt1[3])
-    local_list.append(gt1[4]), local_list.append(gt1[5]), local_list.append(gt1[6]), local_list.append(gt1[7])
-    local_list.append(gt1[8]), local_list.append(gt1[9]), local_list.append(gt2[0]), local_list.append(gt2[1])
-    local_list.append(gt2[2]), local_list.append(gt2[3]), local_list.append(gt2[4]), local_list.append(gt2[5])
-    local_list.append(gt2[6]), local_list.append(gt2[7]), local_list.append(gt2[8]), local_list.append(gt2[9])
-    local_list.append(gt3[0]), local_list.append(gt3[1]), local_list.append(gt3[2]), local_list.append(gt3[3])
-    local_list.append(gt3[4]), local_list.append(gt3[5]), local_list.append(gt3[6]), local_list.append(gt3[7])
-    local_list.append(gt3[8]), local_list.append(gt3[9]), local_list.append(gt4[0]), local_list.append(gt4[1])
-    local_list.append(gt4[2]), local_list.append(gt4[3]), local_list.append(gt4[4]), local_list.append(gt4[5])
-    local_list.append(gt4[6]), local_list.append(gt4[7]), local_list.append(gt4[8]), local_list.append(gt4[9])
+    local_list_2.append(gt1[0]), local_list_2.append(gt1[1]), local_list_2.append(gt1[2]), local_list_2.append(gt1[3])
+    local_list_2.append(gt1[4]), local_list_2.append(gt1[5]), local_list_2.append(gt1[6]), local_list_2.append(gt1[7])
+    local_list_2.append(gt1[8]), local_list_2.append(gt1[9]), local_list_2.append(gt2[0]), local_list_2.append(gt2[1])
+    local_list_2.append(gt2[2]), local_list_2.append(gt2[3]), local_list_2.append(gt2[4]), local_list_2.append(gt2[5])
+    local_list_2.append(gt2[6]), local_list_2.append(gt2[7]), local_list_2.append(gt2[8]), local_list_2.append(gt2[9])
+    local_list_2.append(gt3[0]), local_list_2.append(gt3[1]), local_list_2.append(gt3[2]), local_list_2.append(gt3[3])
+    local_list_2.append(gt3[4]), local_list_2.append(gt3[5]), local_list_2.append(gt3[6]), local_list_2.append(gt3[7])
+    local_list_2.append(gt3[8]), local_list_2.append(gt3[9]), local_list_2.append(gt4[0]), local_list_2.append(gt4[1])
+    local_list_2.append(gt4[2]), local_list_2.append(gt4[3]), local_list_2.append(gt4[4]), local_list_2.append(gt4[5])
+    local_list_2.append(gt4[6]), local_list_2.append(gt4[7]), local_list_2.append(gt4[8]), local_list_2.append(gt4[9])
     import work_func_2
-    work_func_2.main_func_2(local_list)
-    # global global_info_list
-    # global_info_list = fin_info.copy()
-    # distance_y = 0.10
-    # for sr in fin_info:
-    #     res = str(sr)
-    #     distance_y += 0.05
-    #     fin_info_lbl = customtkinter.CTkLabel(info_job_place, text=res, font=("Arial Bold", 18))
-    #     fin_info_lbl.place(relx=0.03, rely=distance_y)
+    info_list_for_bot = work_func_2.main_func_2(local_list_2)
+    global global_info_list_2
+    global_info_list_2 = info_list_for_bot.copy()
+    send_teleg_2()
+
+
+def send_teleg_2():
+    print("Я готов")
+    local_list_for_output_bot = global_info_list_2.copy()
+    bot = Bot("5688586160:AAEbospQ4PrVcLvwaKf9EeqC7FJsS86YGEs")
+
+    dp = Dispatcher(bot)
+
+    kb = ReplyKeyboardMarkup(resize_keyboard=True)
+    kb.add(KeyboardButton("Верно")).insert(KeyboardButton("Не верно"))
+
+    @dp.message_handler(commands=["start"])
+    async def start_send_message(message: types.Message):
+        print("декоратор с функцией работает")
+        await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+        local_list_for_output_bot.pop(0)
+
+    # @dp.message_handler(content_types=["text"])
+    # async def main_work(message: types.message):
+    #     pass
+
+    if __name__ == "__main__":
+        executor.start_polling(dp)
 
 
 # def send_teleg():
