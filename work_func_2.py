@@ -71,7 +71,7 @@ def main_func_2(arg_list):
         shet = 0
         for ddr in new_list_model:
             if d == ddr:
-                res = ddr + " " + new_list_price[shet]
+                res = ddr + ", " + new_list_price[shet]
                 list_for_output_bots.append(res)
             shet += 1
 

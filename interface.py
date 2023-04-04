@@ -6,7 +6,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 global_info_list = []
 global_info_list_2 = []
-
+global_full_list_non_clear_price = []
 
 def get_val():
     local_list = []
@@ -53,6 +53,22 @@ def get_val_2():
     send_teleg_2()
 
 
+def output_in_program():
+    shet = 0
+    print("функция вывода активирована")
+    for ver in global_full_list_non_clear_price:
+        shet += 1
+        unravel = ver.split(", ")
+        obj = customtkinter.CTkLabel(textbox, text=unravel[0])
+        obj.grid(row=shet, column=1)
+        obj_2 = customtkinter.CTkLabel(textbox, text=unravel[1])
+        obj_2.grid(row=shet, column=2)
+        obj_3 = customtkinter.CTkLabel(textbox, text=unravel[2])
+        obj_3.grid(row=shet, column=3)
+
+
+
+
 def send_teleg_2():
     print("Я готов")
     local_list_for_output_bot = global_info_list_2.copy()
@@ -79,6 +95,9 @@ def send_teleg_2():
         if len(local_list_for_output_bot) == 0:
             await bot.send_message(chat_id=message.from_user.id, text="Проверка завершена, дальнейших действий здесь "
                                                                       "не требуется")
+            global global_full_list_non_clear_price
+            global_full_list_non_clear_price = list_not_clear_price.copy()
+            output_in_program()
         elif message.text == "Верно":
             await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
 
@@ -92,10 +111,9 @@ def send_teleg_2():
             one_val = local_list_for_output_bot[0]
             local_list_for_output_bot.pop(0)
 
-
-
-    if __name__ == "__main__":
+    if len(local_list_for_output_bot) != 0:
         executor.start_polling(dp)
+
 
 
 # def send_teleg():
@@ -184,14 +202,17 @@ vid4_1 = MainObject(win, rely_fr_frame, color_frame=color1, smartphone_model=var
 info_job_place = customtkinter.CTkTabview(win, width=495, height=870, corner_radius=15, fg_color="#FFDEAD")
 info_job_place.place(relx=0.70, rely=0.01)
 
-frame_for_info_str = customtkinter.CTkTabview(info_job_place, width=470, height=100, corner_radius=10)
-frame_for_info_str.place(relx=0.015, rely=0.03)
+frame_for_info_str = customtkinter.CTkTabview(info_job_place, width=470, height=100, corner_radius=10, fg_color="#E6E6FA")
+frame_for_info_str.place(relx=0.025, rely=0.03)
 
 info_label = customtkinter.CTkLabel(frame_for_info_str, text="Устройства на которые изменилась цена:", font=("Arial Bold", 20))
 info_label.place(relx=0.08, rely=0.30)
 
 model_lbl = customtkinter.CTkLabel(frame_for_info_str, text="Модели   -   Цена 12   -   Цена 24       -       Кол-во:", font=("Arial Bold", 18))
 model_lbl.place(relx=0.07, rely=0.60)
+
+textbox = customtkinter.CTkTextbox(info_job_place, width=470, height=650, corner_radius=10, fg_color="#E6E6FA")
+textbox.place(relx=0.025, rely=0.16)
 
 send_in_telegram = customtkinter.CTkButton(info_job_place, text="Результат в телеграм", font=("Arial Bold", 18))
 send_in_telegram.place(relx=0.30, rely=0.93)
