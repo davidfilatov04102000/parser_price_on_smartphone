@@ -56,6 +56,8 @@ def get_val_2():
 def send_teleg_2():
     print("Я готов")
     local_list_for_output_bot = global_info_list_2.copy()
+    one_val = ""
+    list_not_clear_price = []
     bot = Bot("5688586160:AAEbospQ4PrVcLvwaKf9EeqC7FJsS86YGEs")
 
     dp = Dispatcher(bot)
@@ -67,11 +69,30 @@ def send_teleg_2():
     async def start_send_message(message: types.Message):
         print("декоратор с функцией работает")
         await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+        nonlocal one_val
+        one_val = local_list_for_output_bot[0]
         local_list_for_output_bot.pop(0)
 
-    # @dp.message_handler(content_types=["text"])
-    # async def main_work(message: types.message):
-    #     pass
+    @dp.message_handler(content_types=["text"])
+    async def main_work(message: types.Message):
+        nonlocal one_val
+        if len(local_list_for_output_bot) == 0:
+            await bot.send_message(chat_id=message.from_user.id, text="Проверка завершена, дальнейших действий здесь "
+                                                                      "не требуется")
+        elif message.text == "Верно":
+            await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+
+            one_val = local_list_for_output_bot[0]
+            local_list_for_output_bot.pop(0)
+        elif message.text == "Не верно":
+
+            one_val = one_val
+            list_not_clear_price.append(one_val)
+            await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+            one_val = local_list_for_output_bot[0]
+            local_list_for_output_bot.pop(0)
+
+
 
     if __name__ == "__main__":
         executor.start_polling(dp)
