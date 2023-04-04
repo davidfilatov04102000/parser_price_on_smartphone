@@ -46,34 +46,34 @@ def get_val_2():
     local_list.append(gt4[2]), local_list.append(gt4[3]), local_list.append(gt4[4]), local_list.append(gt4[5])
     local_list.append(gt4[6]), local_list.append(gt4[7]), local_list.append(gt4[8]), local_list.append(gt4[9])
     import work_func_2
-    fin_info = work_func_2.main_func_2(local_list)
-    global global_info_list
-    global_info_list = fin_info.copy()
-    distance_y = 0.10
-    for sr in fin_info:
-        res = str(sr)
-        distance_y += 0.05
-        fin_info_lbl = customtkinter.CTkLabel(info_job_place, text=res, font=("Arial Bold", 18))
-        fin_info_lbl.place(relx=0.03, rely=distance_y)
+    work_func_2.main_func_2(local_list)
+    # global global_info_list
+    # global_info_list = fin_info.copy()
+    # distance_y = 0.10
+    # for sr in fin_info:
+    #     res = str(sr)
+    #     distance_y += 0.05
+    #     fin_info_lbl = customtkinter.CTkLabel(info_job_place, text=res, font=("Arial Bold", 18))
+    #     fin_info_lbl.place(relx=0.03, rely=distance_y)
 
 
-def send_teleg():
-    bot = Bot("5688586160:AAEbospQ4PrVcLvwaKf9EeqC7FJsS86YGEs")
-
-    dp = Dispatcher(bot)
-
-    # kb = ReplyKeyboardMarkup(resize_keyboard=True)
-    # clot = KeyboardButton("start")
-    # kb.add(clot)
-
-    @dp.message_handler(commands=["start"])
-    async def send_message(message: types.message_id):
-        await message.reply(text="Устройства на которые изменилась цена:")
-        for g in global_info_list:
-            await bot.send_message(chat_id=2130259987, text=g)
-
-    if __name__ == "__main__":
-        executor.start_polling(dp)
+# def send_teleg():
+#     bot = Bot("5688586160:AAEbospQ4PrVcLvwaKf9EeqC7FJsS86YGEs")
+#
+#     dp = Dispatcher(bot)
+#
+#     # kb = ReplyKeyboardMarkup(resize_keyboard=True)
+#     # clot = KeyboardButton("start")
+#     # kb.add(clot)
+#
+#     @dp.message_handler(commands=["start"])
+#     async def send_message(message: types.message_id):
+#         await message.reply(text="Устройства на которые изменилась цена:")
+#         for g in global_info_list:
+#             await bot.send_message(chat_id=2130259987, text=g)
+#
+#     if __name__ == "__main__":
+#         executor.start_polling(dp)
 
 
 memory_place_model = []
@@ -152,8 +152,7 @@ info_label.place(relx=0.08, rely=0.30)
 model_lbl = customtkinter.CTkLabel(frame_for_info_str, text="Модели   -   Цена 12   -   Цена 24       -       Кол-во:", font=("Arial Bold", 18))
 model_lbl.place(relx=0.07, rely=0.60)
 
-send_in_telegram = customtkinter.CTkButton(info_job_place, text="Результат в телеграм", font=("Arial Bold", 18),
-                                           command=send_teleg)
+send_in_telegram = customtkinter.CTkButton(info_job_place, text="Результат в телеграм", font=("Arial Bold", 18))
 send_in_telegram.place(relx=0.30, rely=0.93)
 
 vidget_job_plc = customtkinter.CTkTabview(win, width=600, height=70, corner_radius=15)
