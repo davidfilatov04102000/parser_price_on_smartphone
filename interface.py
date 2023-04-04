@@ -56,21 +56,20 @@ def get_val_2():
 def output_in_program():
     shet = 0
     print("функция вывода активирована")
-    for ver in global_full_list_non_clear_price:
-        shet += 1
-        unravel = ver.split(", ")
-        obj = customtkinter.CTkLabel(textbox, text=unravel[0])
-        obj.grid(row=shet, column=1)
-        obj_2 = customtkinter.CTkLabel(textbox, text=unravel[1])
-        obj_2.grid(row=shet, column=2)
-        obj_3 = customtkinter.CTkLabel(textbox, text=unravel[2])
-        obj_3.grid(row=shet, column=3)
-
-
+    # for ver in global_full_list_non_clear_price:
+    #     shet += 1
+    #     unravel = ver.split(", ")
+    #     obj = customtkinter.CTkLabel(info_job_place_2, text=unravel[0])
+    #     obj.grid(row=shet, column=1)
+    #     obj_2 = customtkinter.CTkLabel(info_job_place_2, text=unravel[1])
+    #     obj_2.grid(row=shet, column=2)
+    #     obj_3 = customtkinter.CTkLabel(info_job_place_2, text=unravel[2])
+    #     obj_3.grid(row=shet, column=3)
+    # jfg = customtkinter.CTkLabel(info_job_place_2, text="Приветики")
+    # jfg.place(relx=0.10, rely=0.35)
 
 
 def send_teleg_2():
-    print("Я готов")
     local_list_for_output_bot = global_info_list_2.copy()
     one_val = ""
     list_not_clear_price = []
@@ -84,7 +83,8 @@ def send_teleg_2():
     @dp.message_handler(commands=["start"])
     async def start_send_message(message: types.Message):
         print("декоратор с функцией работает")
-        await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+        await bot.send_message(chat_id=message.from_user.id, text=f"<b>{local_list_for_output_bot[0]}</b>", reply_markup=kb,
+                               parse_mode="html")
         nonlocal one_val
         one_val = local_list_for_output_bot[0]
         local_list_for_output_bot.pop(0)
@@ -93,13 +93,14 @@ def send_teleg_2():
     async def main_work(message: types.Message):
         nonlocal one_val
         if len(local_list_for_output_bot) == 0:
-            await bot.send_message(chat_id=message.from_user.id, text="Проверка завершена, дальнейших действий здесь "
-                                                                      "не требуется")
-            global global_full_list_non_clear_price
-            global_full_list_non_clear_price = list_not_clear_price.copy()
-            output_in_program()
+            await bot.send_message(chat_id=message.from_user.id, text="Проверка завершена, список моделей цены на "
+                                                                      "которые нужно поменять")
+            for gty in list_not_clear_price:
+                await bot.send_message(chat_id=message.from_user.id, text=f"<b>{gty}</b>", parse_mode="html")
+
         elif message.text == "Верно":
-            await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+            await bot.send_message(chat_id=message.from_user.id, text=f"<b>{local_list_for_output_bot[0]}</b>",
+                                   reply_markup=kb, parse_mode="html")
 
             one_val = local_list_for_output_bot[0]
             local_list_for_output_bot.pop(0)
@@ -107,12 +108,14 @@ def send_teleg_2():
 
             one_val = one_val
             list_not_clear_price.append(one_val)
-            await bot.send_message(chat_id=message.from_user.id, text=local_list_for_output_bot[0], reply_markup=kb)
+            await bot.send_message(chat_id=message.from_user.id, text=f"<b>{local_list_for_output_bot[0]}</b>",
+                                   reply_markup=kb, parse_mode="html")
             one_val = local_list_for_output_bot[0]
             local_list_for_output_bot.pop(0)
 
-    if len(local_list_for_output_bot) != 0:
+    if __name__ == "__main__":
         executor.start_polling(dp)
+
 
 
 
@@ -198,7 +201,6 @@ vid4_1 = MainObject(win, rely_fr_frame, color_frame=color1, smartphone_model=var
                     smart_list=smartphone_list, index=index_for_drive)
 
 
-
 info_job_place = customtkinter.CTkTabview(win, width=495, height=870, corner_radius=15, fg_color="#FFDEAD")
 info_job_place.place(relx=0.70, rely=0.01)
 
@@ -211,8 +213,11 @@ info_label.place(relx=0.08, rely=0.30)
 model_lbl = customtkinter.CTkLabel(frame_for_info_str, text="Модели   -   Цена 12   -   Цена 24       -       Кол-во:", font=("Arial Bold", 18))
 model_lbl.place(relx=0.07, rely=0.60)
 
-textbox = customtkinter.CTkTextbox(info_job_place, width=470, height=650, corner_radius=10, fg_color="#E6E6FA")
-textbox.place(relx=0.025, rely=0.16)
+info_job_place_2 = customtkinter.CTkTabview(info_job_place, width=470, height=650, corner_radius=10, fg_color="#E6E6FA")
+info_job_place_2.place(relx=0.025, rely=0.16)
+
+# textbox = customtkinter.CTkTextbox(info_job_place, width=470, height=650, corner_radius=10, fg_color="#E6E6FA")
+# textbox.place(relx=0.025, rely=0.16)
 
 send_in_telegram = customtkinter.CTkButton(info_job_place, text="Результат в телеграм", font=("Arial Bold", 18))
 send_in_telegram.place(relx=0.30, rely=0.93)
